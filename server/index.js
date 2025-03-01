@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import dotenv from "dotenv"
+import dotenv from "dotenv";
+import cors from "cors";
 
 import categoryRouter from "./routes/category.js"
 
@@ -10,6 +11,7 @@ const port = 8080;
 dotenv.config()
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
     res.send("hello world!")

@@ -1,13 +1,16 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CategoryService } from '../../../services/category.service';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-categories',
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, RouterLink],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
@@ -17,7 +20,19 @@ export class CategoriesComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  categoryService = inject(CategoryService)
+
+  ngOnInit() {
+    this.categoryService.getCategories().subscribe((result: any) => {
+      this.dataSource = result;
+    })
+  }
+
   constructor() {
+    this.categoryService.getCategories().subscribe((result: any) => {
+      console.log(result)
+    })
     this.dataSource = new MatTableDataSource([] as any);
   }
 

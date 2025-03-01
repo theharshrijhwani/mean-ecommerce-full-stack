@@ -1,5 +1,8 @@
 <div class="px-40 mt-10">
-    <h1>Manage categories</h1>
+    <div class="flex justify-between mb-10">
+        <h1 class="text-3xl">Manage categories</h1>
+        <button mat-raised-button color="primary" routerLink="/admin/categories/add">Add Category</button>
+    </div>
     <div class="shadow">
         <mat-form-field class="w-full">
             <mat-label>Filter</mat-label>
@@ -9,7 +12,7 @@
             <!-- ID Column -->
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+                <td mat-cell *matCellDef="let row"> {{row._id}} </td>
             </ng-container>
             <!-- Name Column -->
             <ng-container matColumnDef="name">
@@ -18,8 +21,11 @@
             </ng-container>
             <!-- Fruit Column -->
             <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit </th>
-                <td mat-cell *matCellDef="let row"> {{row.fruit}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                <td mat-cell *matCellDef="let row">
+                    <button mat-raised-button color="accent" class="mr-4">Edit</button>
+                    <button mat-raised-button color="warn">Delete</button>
+                </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
