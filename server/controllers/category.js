@@ -5,6 +5,12 @@ export const getCategories = async (req, res) => {
     return res.send(categories.map(c => c.toObject()))
 }
 
+export const getCategoryById = async (req, res) => {
+    const { id } = req.params;
+    let category = await Category.findById(id);
+    res.send(category.toObject())
+}
+
 export const addCategory = async (req, res) => {
     let category = new Category({
         name: req.body.name
@@ -16,11 +22,16 @@ export const addCategory = async (req, res) => {
 }
 
 export const updateCategory = async (req, res) => {
-    let model = req.body;
+    // console.log(req.body);
+    let name = req.body.name;
+    console.log(name)
     const { id } = req.params;
-    Category.findOneAndUpdate({ _id: id }, model);
-
-    res.send({ message: "updated" })
+    await Category.findByIdAndUpdate(id, {
+        name: name
+    });
+    let obj = await Category.findById(id);
+    console.log(obj)
+    res.send(obj.toObject())
 }
 
 export const deleteCategory = async (req, res) => {

@@ -24,9 +24,7 @@ export class CategoriesComponent {
   categoryService = inject(CategoryService)
 
   ngOnInit() {
-    this.categoryService.getCategories().subscribe((result: any) => {
-      this.dataSource = result;
-    })
+    this.getServerData();
   }
 
   constructor() {
@@ -34,6 +32,12 @@ export class CategoriesComponent {
       console.log(result)
     })
     this.dataSource = new MatTableDataSource([] as any);
+  }
+
+  private getServerData() {
+    this.categoryService.getCategories().subscribe((result: any) => {
+      this.dataSource = result;
+    });
   }
 
   ngAfterViewInit() {
@@ -48,5 +52,13 @@ export class CategoriesComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  delete(id: string) {
+    console.log(id);
+    this.categoryService.deleteCategory(id).subscribe((result) => {
+      alert('category deleted');
+      this.getServerData();
+    })
   }
 }
