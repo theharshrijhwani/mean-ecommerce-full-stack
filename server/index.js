@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import categoryRouter from "./routes/category.js"
+import brandRouter from "./routes/brand.js"
 
 const app = express();
 const port = 8080;
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/category", categoryRouter);
+app.use("/brand", brandRouter);
 
 async function connectDB() {
     await mongoose.connect(process.env.MONGODB_URL)
