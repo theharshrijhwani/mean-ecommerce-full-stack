@@ -20,7 +20,7 @@ export class BrandService {
   }
 
   addBrand(name: string) {
-    return this.http.post(environment.api + "/add", {
+    return this.http.post(environment.api + "/brand/add", {
       name: name
     });
   }
