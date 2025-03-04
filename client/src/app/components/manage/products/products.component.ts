@@ -4,38 +4,38 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { BrandService } from '../../../services/brand.service';
+import { ProductService } from '../../../services/product.service';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-brands',
+  selector: 'app-products',
   imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, RouterLink],
-  templateUrl: './brands.component.html',
-  styleUrl: './brands.component.scss'
+  templateUrl: './products.component.html',
+  styleUrl: './products.component.scss'
 })
-export class BrandsComponent {
-  displayedColumns: string[] = ['id', 'name', 'action'];
+export class ProductsComponent {
+  displayedColumns: string[] = ['id', 'name', 'shortDescription', 'price', 'discount', 'action'];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  brandService = inject(BrandService)
+  productService = inject(ProductService)
 
   ngOnInit() {
     this.getServerData();
   }
 
   constructor() {
-    this.brandService.getBrands().subscribe((result: any) => {
+    this.productService.getProducts().subscribe((result: any) => {
       console.log(result)
     })
     this.dataSource = new MatTableDataSource([] as any);
   }
 
   private getServerData() {
-    this.brandService.getBrands().subscribe((result: any) => {
+    this.productService.getProducts().subscribe((result: any) => {
       this.dataSource = result;
     });
   }
@@ -55,10 +55,9 @@ export class BrandsComponent {
   }
 
   delete(id: string) {
-    console.log(id);
-    this.brandService.deleteBrand(id).subscribe((result) => {
-      alert('brand deleted');
-      this.getServerData();
-    })
+    this.productService.deleteProduct(id).subscribe((result: any) => {
+      alert("product deleted");
+      this.getServerData()
+    });
   }
 }
