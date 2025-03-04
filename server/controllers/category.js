@@ -2,7 +2,7 @@ import Category from "../models/categoryModel.js";
 
 export const getCategories = async (req, res) => {
     let categories = await Category.find();
-    return res.send(categories.map(c => c.toObject()))
+    res.send(categories.map(c => c.toObject()))
 }
 
 export const getCategoryById = async (req, res) => {

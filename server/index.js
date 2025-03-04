@@ -5,6 +5,7 @@ import cors from "cors";
 
 import categoryRouter from "./routes/category.js"
 import brandRouter from "./routes/brand.js"
+import productRouter from "./routes/product.js"
 
 const app = express();
 const port = 8080;
@@ -20,6 +21,8 @@ app.get("/", (req, res) => {
 
 app.use("/category", categoryRouter);
 app.use("/brand", brandRouter);
+app.use("/product", productRouter);
+
 
 async function connectDB() {
     await mongoose.connect(process.env.MONGODB_URL)
